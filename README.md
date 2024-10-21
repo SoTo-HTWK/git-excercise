@@ -12,15 +12,25 @@ Legen Sie für diese Übung ein eigenes Verzeichnis auf Ihrer Festplatte an und 
 Konfigurieren Sie git, indem Sie **global** Ihren Namen und Ihre studentische Email-Addresse (vorname.nachname@htwk-leipzig.de) setzen.
 
 `git config --global user.name="<Vorname> <Nachname>"`
+
 `git config --gobal user.email="<Ihre Email>"`
 
 Überprüfen Sie, dass Ihre Änderungen akzeptiert wurden.
 
-`git config --global --list` 
+`git config --global --list`
+
+Die Ausgabe sollte wie folgt aussehen:
+
+```
+user.email=<Ihre Email>
+user.name=<Ihr Name>
+```
 
 ## Aufgabe 2: Branch anlegen
 
-Clonen Sie dieses Repository mittels git und Terminal und wechseln Sie anschließend in das Repository-Verzeichnis. Legen Sie einen neuen Branch an (`git branch <nutzername>`), wobei Sie `<nutzername>` durch Ihren HTWK-Loginnamen ersetzen.
+Clonen Sie dieses Repository mittels git und Terminal und wechseln Sie anschließend in das Repository-Verzeichnis. Sie haben nun den `main`-Branch aus dem Remote-Repository auf Ihrem lokalen Rechner heruntergeladen. Allerdings ist der `main`-Branch geschützt, um zu verhindern, dass durch einen Upload ungewollt versehentliche Änderungen übernommen werden. Man arbeitet mit `Branches`, um eine bessere, aufgabenzentrierte Übersicht zu haben und nicht gleichzeitig an der selben Code-Base zu schreiben.
+
+ Legen Sie einen neuen Branch an (`git branch <nutzername>`), wobei Sie `<nutzername>` durch Ihren HTWK-Loginnamen ersetzen.
 
 Jetzt haben Sie zwar den Branch angelegt, befinden sich aber immer noch im Branch `main`. Dies können Sie überprüfen, indem Sie `git branch` eingeben. Wechseln Sie in den neu angelegten Branch: `git checkout <nutzername>`.
 
@@ -30,9 +40,11 @@ Versuchen Sie, den erstellten Branch zu löschen: `git branch delete <nutzername
 Überprüfen Sie das Ergebnis mittels `git branch`.
 Löschen Sie die versehentlich erstellten Branches: `git branch -d delete rm`.
 
-## Aufgabe 4: Push
+## Aufgabe 4: Erster Push
 
-Wenn Sie Dateien von Ihrem lokalen Repository zu einem remote Repository (hier: GitLab) hochladen wollen, spricht man davon, den Code zu pushen. Wichtig hierbei ist, dass Sie Ihre Änderungen commited haben.
+Diese Aufgabe dient dazu, nochmal nachzuvollziehen, was an den einzelnen "Orten" (Ihr Rechner, GitLab im Browser) passiert.
+
+Wenn Sie Dateien von Ihrem lokalen Repository zu einem remote Repository (hier: GitLab) hochladen wollen, spricht man davon, den Code zu `push`en. Wichtig hierbei ist, dass Sie Ihre Änderungen `commit`ed haben.
 
 Erstellen Sie in Ihrem lokalen git-Repository eine Datei `main.py` mit folgendem Inhalt:
 ```
@@ -41,93 +53,34 @@ import sortierVerfahren.py
 print(bubbleSort([3,1,5,-1,7]))
 ```
 
-Pushen Sie anschließend diese Datei in das remote Repository: `git push --set-upstream origin <branch>`
-
-## Aufgabe 5: Add, Commit, Push
+Pushen Sie anschließend diese Datei in das remote Repository: `git push --set-upstream origin <nutzername>`
 
 Überprüfen Sie die Ausgabe der vorigen Ausgabe. Diese sollte lauten: `Total 0 (delta 0), reused 0 (delta 0), pack-reused 0`
 
-Grund hierfür ist, dass Sie lediglich die Informationen über Ihren Branch hochgeladen haben. Überprüfen Sie dies in GitLab, indem Sie Ihren Branch auswählen. Dieser sollte noch keine `main.py` enthalten:
+Im Browser in GitLab sollten Sie nun feststellen, dass Sie einen neuen Branch angezeigt bekommen, aber dieser Branch noch keine Dateien beinhaltet:
 
 ![Branch in GitLab auswählen](https://gitlab.dit.htwk-leipzig.de/grundlagen-der-informatik/git-first-steps/-/blob/main/branch_selection.png)
 
-Um Code zu pushen, muss dieser erst dem lokalen Repository zum Tracken hinzugefügt werden (`git add`), anschließend in das lokale Repository geladen werden (`git commit -m "<Ihre Message>"`) und erst dann können Sie den Code mittels `git push` hochladen.
+## Aufgabe 5: Add, Commit, Push
+
+Grund für die "fehlenden Dateien" ist, dass Sie lediglich die Informationen über Ihren Branch hochgeladen haben, da die Dateien nicht getracked und committed waren.
+
+Um Code zu pushen, muss dieser erst dem lokalen Repository zum Tracken hinzugefügt werden. Überprüfen Sie mit `git status`, welche Änderungen Sie vollzogen haben und welche bereits getrackt werden. Fügen Sie nun die `main.py` zum Tracking hinzu (`git add`). Anschließend müssen die getrackten Änderungen in das lokale Repository geladen werden (`git commit -m "<Ihre Message>"`) und erst dann können Sie den Code mittels `git push` in das remote Repository (GitLab) hochladen.
+
+Überprüfen Sie mittels `git status` den Zustand Ihres lokalen Repositories.
+
+Fügen Sie nun alle Dateien (`*` für alle) dem Tracking hinzu.
 
 `git add *`
+
+Nun fügen Sie Ihre Änderungen von Ihrem Workspace zum lokalen Repository hinzu:
 
 `git commit -m "main.py erstellt"`
 
-`git push`
-
-Das `--set-upstream origin <branch>` können Sie nun weglassen, da es gesetzt bleibt.
-
-Überprüfen Sie, dass Ihr Repository im Branch `<nutzername>` die vorgenommenen Änderungen aufweist.
-
-## Aufgabe 6: fetch, merge, pull
-
-a)
-
-Legen Sie einen neuen branch `<nutzername>-bugfix` an und wechseln Sie in diesen.
-
-Beheben Sie den Fehler in `sortierVerfahren.py` für BubbleSort. Pushen Sie Ihre Lösung in den `<nutzername>-bugfix` Branch:
-
-`git add *`
-
-`git commit -m "sortierVerfahren.py debugged"`
+Nun sollte `git status` anzeigen, dass alle Änderungen aus Ihrem Workspace im lokalen Repository vermerkt sind. Jetzt können Sie den Code vom lokalen Repository in das Remote Repository (GitLab) hochladen.
 
 `git push`
 
-Wechseln Sie nun in Ihren anderen Branch `<nutzername>` und überprüfen Sie den Inhalt von `sortierVerfahren.py`. Sind Ihre Änderungen vorhanden?
+Überprüfen Sie in Ihrem Browser, dass nun auch in Ihrem Branch die Code-Änderungen und der Commit-Eintrag vorhanden sind.
 
-b)
-
-Um nun die Änderungen von einem Branch in einem anderen Branch einzuspielen, spricht man von `mergen`, d.h. zusammenführen, verschmelzen. In dieser Aufgabe wollen wir die Änderungen im `remote`-Branch `<nutzername>-bugfix` in Ihren lokalen Branch `<nutzername>` übernehmen:
-
-`git merge origin/<nutzername>-bugfix`
-
-Überprüfen Sie, ob die Änderungen übernommen wurden.
-
-## Aufgabe 7: git log
-
-Lassen Sie sich nun einmal die logs für Ihre Arbeit anzeigen: `git log`. Hier sehen Sie die verschiedenen, getätigten Commits mit Ihren Hash-Werten. Diese Hexadezimal-Zahlen dienen der eindeutigen Identifikation eines Commits.
-
-Ein Zeiger `HEAD` zeigt nun, auf welchem Commit und in welchem Branch Sie sich befinden: `commit <hashwert> (HEAD -> <nutzername>, ...)`. Außerdem zeigt er, welche Commits in welchem Branch vorhanden sind.
-
-Der Stand müsste nun ungefähr wie folgt lauten:
-
-Commit i `(HEAD -> <nutzername>, origin/<nutzername>-bugfix, <nutzername>-bugfix)`
-
-Commit i-1 `origin/<nutzername>`
-
-Commit i-2 `main`
-
-## Aufgabe 8: merge in lokalem Branch
-
-Ihr Branch `main` hängt nun einige Commits hinterher. Um lokale Branches zusammenzuführen, wechseln Sie in den Branch, in den Sie die Änderungen hinzufügen wollen und mergen Sie ihn mit dem anderen, ggf neueren Branch.
-
-`git checkout main`
-
-`git merge <nutzername>`
-
-## Aufgabe 9: revert, reset, Detached Heads
-
-Überprüfen Sie für diese Aufgabe, dass Sie sich im lokalen Branch `main` befinden.
-
-Rufen Sie `git log` auf und merken Sie sich den Hashwert des `aktuellen Commits i` und des `Commits i-2`.
-
-Es gibt Situationen, in denen Sie einen Commit rückgängig machen wollen und git stellt Ihnen zwei Möglichkeiten zur Verfügung: `git reset` und `git revert`. Der Unterschied ist, dass `git revert` einen neuen(!) Commit vollzieht, um auf den Stand eines alten Commits zurückzuwechseln:
-
-`git revert <Commit-Hash i-2>`
-
-Es sollte sich ggf ein Editor öffnen. Speichern Sie die Änderungen und beenden Sie den Editor (Strg+S, Strg+X in nano, :wq! in vim).
-
-Checken Sie die Log-Einträge Ihres git-Repositories. Sie sollten nun einen `Commit i+1` sehen, der jedoch erstmal nur lokal existiert.
-
-Meist will man in dieser Situation statt eines neuen Commits einfach seine Änderungen verwerfen. Dies funktioniert mithifle von:
-
-`git reset --hard <Commit-Hash i>` bzw. `git reset --hard HEAD`
-
-wobei das Flag `--hard` alle von Ihnen durchgeführten Änderungen verwirft.
-
-## Aufgabe 10: git stash, git pop
-
+<strong>Hinweis:</strong>Das `--set-upstream origin <branch>` können Sie nun weglassen, da es gesetzt bleibt.
