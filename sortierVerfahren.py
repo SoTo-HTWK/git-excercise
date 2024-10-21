@@ -8,12 +8,6 @@ def bubbleSort(array: []):
                 array[j] = array[i]
     return array
 
-def maxSort(list:[]):
-    if(length=len(list)<2):
-        return list
-    #TODO implement
-    return list
-
 def minSort(list:[]):
     length = len(list)
     if(length < 2):
@@ -26,7 +20,7 @@ def minSort(list:[]):
 
 def findMinPos(j: int, list:[]):
         pos = -1
-    minVal = sys.maxsize
+    minVal = float('inf')
     for i in range (j, len(list)):
         if list[i]<minVal:
             minVal = list[i]
