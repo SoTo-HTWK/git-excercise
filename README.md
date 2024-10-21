@@ -7,7 +7,7 @@ Diese Übungen sollen Ihnen helfen, das Versionierungstool **Git** bedienen zu k
 Öffnen Sie ein Terminal (Git Bash oder WSL), um die folgenden Übungen zu absolvieren.
 Legen Sie für diese Übung ein eigenes Verzeichnis auf Ihrer Festplatte an und wechseln Sie im Terminal in das Verzeichnis.
 
-## Übung 1
+## Aufgabe 1
 
 Konfigurieren Sie git, indem Sie **global** Ihren Namen und Ihre studentische Email-Addresse (vorname.nachname@htwk-leipzig.de) setzen.
 
@@ -18,60 +18,116 @@ Konfigurieren Sie git, indem Sie **global** Ihren Namen und Ihre studentische Em
 
 `git config --global --list` 
 
-## Übung 2: Initialisierung I
+## Aufgabe 2: Branch anlegen
 
-Initiieren Sie ein git Repository in Ihrem soeben angelegten Verzeichnis (`git init`).
-Lassen Sie sich danach die Inhalte ihres Verzeichnisses über `ls` und `ls -la` anzeigen. Welchen Unterschied bemerken Sie?
+Clonen Sie dieses Repository mittels git und Terminal und wechseln Sie anschließend in das Repository-Verzeichnis. Legen Sie einen neuen Branch an (`git branch <nutzername>`), wobei Sie `<nutzername>` durch Ihren HTWK-Loginnamen ersetzen.
 
-## Übung 3: Initialisierung II
+Jetzt haben Sie zwar den Branch angelegt, befinden sich aber immer noch im Branch `main`. Dies können Sie überprüfen, indem Sie `git branch` eingeben. Wechseln Sie in den neu angelegten Branch: `git checkout <nutzername>`.
 
-Überprüfen Sie den Status Ihres git Repository mithilfe von `git status`.
-Was passiert, wenn Sie das versteckte Verzeichnis aus Übung 2 löschen? Überprüfen Sie Ihre Vermutung, indem Sie das Verzeichnis mit `rm -rf .git` löschen und anschließend noch einmal `git status` ausführen.
-Legen Sie anschließend ein neues Repository mithilfe von `git init` an.
+## Aufgabe 3: Branch löschen
 
-## Übung 4: Tracken von Dateien
+Versuchen Sie, den erstellten Branch zu löschen: `git branch delete <nutzername>` bzw. `git branch rm <nutzername>`.
+Überprüfen Sie das Ergebnis mittels `git branch`.
+Löschen Sie die versehentlich erstellten Branches: `git branch -d delete rm`.
 
-Legen Sie eine Datei `myfile.txt` an mit dem Inhalt "Hello git": `echo "Hello git" >> myfile.txt`.
-Überprüfen Sie mithilfe des `cat`-Kommandos, dass der Inhalt erfolgreich in die Datei geschrieben wurde (und dass die Datei existiert).
-Nutzen Sie `git status`, um den Zustand Ihres Repositories zu überprüfen. Sie werden sehen, dass die Datei myfile.txt von git erkannt, aber noch nicht getracked wird.
-Fügen Sie die Datei zu dem Repository hinzu: `git add myfile.txt`.
-Überprüfen Sie die Änderung mithilfe von `git status`.
+## Aufgabe 4: Push
 
-## Übung 5: Erster Commit
+Wenn Sie Dateien von Ihrem lokalen Repository zu einem remote Repository (hier: GitLab) hochladen wollen, spricht man davon, den Code zu pushen. Wichtig hierbei ist, dass Sie Ihre Änderungen commited haben.
 
-Die Datei `myfile.txt` wird jetzt zwar getracked, ist aber noch nicht im Repository gespeichert. Hierfür müssen wir die Änderungen, die wir durch `git add` verfolgen, auch in das Repository übertragen. Dies geschieht mithilfe von `git commit -m "<Commit Message>"`, wobei der Parameter `-m` angibt, dass das folgende Argument die Commit-Message darstellt.
-Führen Sie anschließend `git status` aus und überprüfen Sie die Änderungen.
-Führen Sie danach `git log` aus und überprüfen Sie, dass Sie eine Ausgabe ähnlich zu folgender bekommen:
-`commit 44e4fd0089781bdfeea04b72ee2767a1fdfa6f4b (HEAD -> main)`
+Erstellen Sie in Ihrem lokalen git-Repository eine Datei `main.py` mit folgendem Inhalt:
+```
+import sortierVerfahren.py
 
-Bei Ihnen wird sehr wahrscheinlich eine andere Zahlen-und-Buchstabenfolge stehen. Dies nennt man einen Hash und dieser dient dazu, einen Commit eindeutig zu identifizieren. Notieren Sie sich den Hash.
+print(bubbleSort([3,1,5,-1,7]))
+```
 
-## Übung 6: Mehrere Commits
+Pushen Sie anschließend diese Datei in das remote Repository: `git push --set-upstream origin <branch>`
 
-Bearbeiten Sie die Datei `myfile.txt` und fügen Sie ein paar Textzeilen hinzu.
-Fügen Sie anschließend die Datei erneut dem Index hinzu und commiten Sie Ihre Änderungen in das lokale Repository.
-Überprüfen Sie mit `git log`, dass es nun einen zweiten Commit gibt.
-Überprüfen Sie mit `git show`, welche Änderungen Sie durchgeführt haben.
+## Aufgabe 5: Add, Commit, Push
 
-## Übung 7: Dateien wiederherstellen
+Überprüfen Sie die Ausgabe der vorigen Ausgabe. Diese sollte lauten: `Total 0 (delta 0), reused 0 (delta 0), pack-reused 0`
 
-Löschen Sie die Datei `myfile.txt` und vergewissern Sie sich, dass die Datei wirklich entfernt wurde (`ls`).
-Stellen Sie die gelösche Datei aus Ihrem Reppository wieder her: `git restore myfile.txt` und vergewissern Sie sich, dass die Datei wieder im Verzeichnis vorhanden ist.
+Grund hierfür ist, dass Sie lediglich die Informationen über Ihren Branch hochgeladen haben. Überprüfen Sie dies in GitLab, indem Sie Ihren Branch auswählen. Dieser sollte noch keine `main.py` enthalten:
 
-## Übung 8: Zwischen Commits wechseln
+![Branch in GitLab auswählen](https://gitlab.dit.htwk-leipzig.de/grundlagen-der-informatik/git-first-steps/-/blob/main/branch_selection.png)
 
-Lassen Sie sich Ihre bisherigen Commits mithifle von `git log` anzeigen.
-Wir wollen nun den Inhalt aus Ihrem ersten Commit wiederherstellen.
-Wechseln Sie hierfür mit `git reset <commit_hash_1>` zurück.
-Stellen Sie den Zustand der Datei zum Zeitpunkt des ersten Commits wieder her.
-Überprüfen Sie, dass der Inhalt der Datei myfile.txt tatsächlich geändert wurde.
-Rufen Sie erneut `git log` auf. Was stellen Sie fest? Was passiert, wenn Sie `git reset <commit_hash_2>` eingeben und anschließend `git log` aufrufen?
+Um Code zu pushen, muss dieser erst dem lokalen Repository zum Tracken hinzugefügt werden (`git add`), anschließend in das lokale Repository geladen werden (`git commit -m "<Ihre Message>"`) und erst dann können Sie den Code mittels `git push` hochladen.
 
-## Übung 9: Branches
+`git add *`
 
-Erstellen Sie einen neuen Branch für Ihr Repository: `git branch <name>`
-Branches helfen z.B. in der Entwicklung von Software, verschiedene Features parallel und relativ unabhängig voneinander zu entwickeln. Mithilfe von `git branch --list --all` können Sie sich alle Branches Ihres Repositories anzeigen lassen. Nachdem Sie den neuen Branch angelegt haben, befinden Sie sich allerdings immer noch in Ihrem urpsrünglichen Branch. Wechseln Sie den Branch: `git checkout new-branch`.
-Legen Sie analog zu Übung 4 eine neue Datei "myfile2.txt" an und füllen Sie sie mit beliebigem Inhalt. Fügen Sie die Datei Ihrem Repository hinzu und commiten Sie Ihre Änderungen.
+`git commit -m "main.py erstellt"`
 
+`git push`
 
-Wechseln Sie nun zurück zu Ihrem urpsrünglichen Branch. Überprüfen Sie den Inhalt Ihres Verzeichnisses. Was stellen Sie fest?
+Das `--set-upstream origin <branch>` können Sie nun weglassen, da es gesetzt bleibt.
+
+Überprüfen Sie, dass Ihr Repository im Branch `<nutzername>` die vorgenommenen Änderungen aufweist.
+
+## Aufgabe 6: fetch, merge, pull
+
+a)
+
+Legen Sie einen neuen branch `<nutzername>-bugfix` an und wechseln Sie in diesen.
+
+Beheben Sie den Fehler in `sortierVerfahren.py` für BubbleSort. Pushen Sie Ihre Lösung in den `<nutzername>-bugfix` Branch:
+
+`git add *`
+
+`git commit -m "sortierVerfahren.py debugged"`
+
+`git push`
+
+Wechseln Sie nun in Ihren anderen Branch `<nutzername>` und überprüfen Sie den Inhalt von `sortierVerfahren.py`. Sind Ihre Änderungen vorhanden?
+
+b)
+
+Um nun die Änderungen von einem Branch in einem anderen Branch einzuspielen, spricht man von `mergen`, d.h. zusammenführen, verschmelzen. In dieser Aufgabe wollen wir die Änderungen im `remote`-Branch `<nutzername>-bugfix` in Ihren lokalen Branch `<nutzername>` übernehmen:
+
+`git merge origin/<nutzername>-bugfix`
+
+Überprüfen Sie, ob die Änderungen übernommen wurden.
+
+## Aufgabe 7: git log
+
+Lassen Sie sich nun einmal die logs für Ihre Arbeit anzeigen: `git log`. Hier sehen Sie die verschiedenen, getätigten Commits mit Ihren Hash-Werten. Diese Hexadezimal-Zahlen dienen der eindeutigen Identifikation eines Commits.
+
+Ein Zeiger `HEAD` zeigt nun, auf welchem Commit und in welchem Branch Sie sich befinden: `commit <hashwert> (HEAD -> <nutzername>, ...)`. Außerdem zeigt er, welche Commits in welchem Branch vorhanden sind.
+
+Der Stand müsste nun ungefähr wie folgt lauten:
+
+Commit i `(HEAD -> <nutzername>, origin/<nutzername>-bugfix, <nutzername>-bugfix)`
+
+Commit i-1 `origin/<nutzername>`
+
+Commit i-2 `main`
+
+## Aufgabe 8: merge in lokalem Branch
+
+Ihr Branch `main` hängt nun einige Commits hinterher. Um lokale Branches zusammenzuführen, wechseln Sie in den Branch, in den Sie die Änderungen hinzufügen wollen und mergen Sie ihn mit dem anderen, ggf neueren Branch.
+
+`git checkout main`
+
+`git merge <nutzername>`
+
+## Aufgabe 9: revert, reset, Detached Heads
+
+Überprüfen Sie für diese Aufgabe, dass Sie sich im lokalen Branch `main` befinden.
+
+Rufen Sie `git log` auf und merken Sie sich den Hashwert des `aktuellen Commits i` und des `Commits i-2`.
+
+Es gibt Situationen, in denen Sie einen Commit rückgängig machen wollen und git stellt Ihnen zwei Möglichkeiten zur Verfügung: `git reset` und `git revert`. Der Unterschied ist, dass `git revert` einen neuen(!) Commit vollzieht, um auf den Stand eines alten Commits zurückzuwechseln:
+
+`git revert <Commit-Hash i-2>`
+
+Es sollte sich ggf ein Editor öffnen. Speichern Sie die Änderungen und beenden Sie den Editor (Strg+S, Strg+X in nano, :wq! in vim).
+
+Checken Sie die Log-Einträge Ihres git-Repositories. Sie sollten nun einen `Commit i+1` sehen, der jedoch erstmal nur lokal existiert.
+
+Meist will man in dieser Situation statt eines neuen Commits einfach seine Änderungen verwerfen. Dies funktioniert mithifle von:
+
+`git reset --hard <Commit-Hash i>` bzw. `git reset --hard HEAD`
+
+wobei das Flag `--hard` alle von Ihnen durchgeführten Änderungen verwirft.
+
+## Aufgabe 10: git stash, git pop
+
