@@ -8,9 +8,9 @@ Diese Übungen sollen Ihnen helfen, das Versionierungstool **Git** bedienen zu k
 
 a) Konfigurieren Sie git, indem Sie **global** Ihren Namen und Ihre studentische Email-Addresse (vorname.nachname@htwk-leipzig.de) setzen.
 
-`git config --global user.name="<Vorname> <Nachname>"`
+`git config --global user.name "<vorname>.<nachname>"`
 
-`git config --gobal user.email="<Ihre Email>"`
+`git config --gobal user.email "<Ihre Email>"`
 
 Überprüfen Sie, dass Ihre Änderungen akzeptiert wurden.
 
@@ -20,15 +20,17 @@ Die Ausgabe sollte wie folgt aussehen:
 
 ```
 user.email=<Ihre Email>
-user.name=<Ihr Name>
+user.name=<Ihr_Name.Ihr_Vorname>
 ```
 
-b) Legen Sie für diese Übung ein eigenes Verzeichnis auf Ihrer Festplatte an und wechseln Sie im Terminal in das Verzeichnis.
+b) Legen Sie sich nun noch ein Access Token an, das Sie sich speichern müssen, da es nach dem Erstellen nicht wieder angezeigt werden kann. Das Personal Access Token kann angelegt werden unter: https://gitlab.dit.htwk-leipzig.de/-/user_settings/personal_access_tokens Stellen Sie sicher, dass Sie die Checkboxen mit "api", "read_repository" und "write_repository" aktivieren.
+
+c) Legen Sie für diese Übung ein eigenes Verzeichnis auf Ihrer Festplatte an und wechseln Sie im Terminal in das Verzeichnis.
 
 ## Aufgabe 1
 
 Clonen Sie dieses Repository mittels git und Terminal:
-`git clone git@gitlab.dit.htwk-leipzig.de:grundlagen-der-informatik/git-first-steps.git`
+`git clone https://<vorname.nachname>:<your_access_token>@gitlab.dit.htwk-leipzig.de/grundlagen-der-informatik/git-first-steps.git`
 
 Anschließend wechseln Sie in das heruntergeladene Verzeichnis:
 `cd git-first-steps`
