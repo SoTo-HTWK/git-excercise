@@ -5,11 +5,8 @@ Diese Übungen sollen Ihnen helfen, das Versionierungstool **Git** bedienen zu k
 ## Getting started
 
 Öffnen Sie ein Terminal (Git Bash oder WSL), um die folgenden Übungen zu absolvieren.
-Legen Sie für diese Übung ein eigenes Verzeichnis auf Ihrer Festplatte an und wechseln Sie im Terminal in das Verzeichnis.
 
-## Aufgabe 1
-
-Konfigurieren Sie git, indem Sie **global** Ihren Namen und Ihre studentische Email-Addresse (vorname.nachname@htwk-leipzig.de) setzen.
+a) Konfigurieren Sie git, indem Sie **global** Ihren Namen und Ihre studentische Email-Addresse (vorname.nachname@htwk-leipzig.de) setzen.
 
 `git config --global user.name="<Vorname> <Nachname>"`
 
@@ -26,9 +23,19 @@ user.email=<Ihre Email>
 user.name=<Ihr Name>
 ```
 
+b) Legen Sie für diese Übung ein eigenes Verzeichnis auf Ihrer Festplatte an und wechseln Sie im Terminal in das Verzeichnis.
+
+## Aufgabe 1
+
+Clonen Sie dieses Repository mittels git und Terminal:
+`git clone git@gitlab.dit.htwk-leipzig.de:grundlagen-der-informatik/git-first-steps.git`
+
+Anschließend wechseln Sie in das heruntergeladene Verzeichnis:
+`cd git-first-steps`
+
 ## Aufgabe 2: Branch anlegen
 
-Clonen Sie dieses Repository mittels git und Terminal und wechseln Sie anschließend in das Repository-Verzeichnis. Sie haben nun den `main`-Branch aus dem Remote-Repository auf Ihrem lokalen Rechner heruntergeladen. Allerdings ist der `main`-Branch geschützt, um zu verhindern, dass durch einen Upload ungewollt versehentliche Änderungen übernommen werden. Man arbeitet mit `Branches`, um eine bessere, aufgabenzentrierte Übersicht zu haben und nicht gleichzeitig an der selben Code-Base zu schreiben.
+Sie haben nun den `main`-Branch aus dem Remote-Repository auf Ihrem lokalen Rechner heruntergeladen. Allerdings ist der `main`-Branch geschützt, um zu verhindern, dass durch einen Upload ungewollt versehentliche Änderungen übernommen werden. Man arbeitet mit `Branches`, um eine bessere, aufgabenzentrierte Übersicht zu haben und nicht gleichzeitig an der selben Code-Base zu schreiben.
 
  Legen Sie einen neuen Branch an (`git branch <nutzername>`), wobei Sie `<nutzername>` durch Ihren HTWK-Loginnamen ersetzen.
 
