@@ -3,9 +3,8 @@ def bubbleSort(array: []):
     length = len(array)
     for i in range(0,length):
         for k in range(0,length-1):
-            if array[i] > array[j]:
-                array[i] = array[j]
-                array[j] = array[i]
+            if array[i] > array[k]:
+                array[i], array[k] = array[k], array[i]
     return array
 
 def minSort(list:[]):
